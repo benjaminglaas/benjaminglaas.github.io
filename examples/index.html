@@ -11985,7 +11985,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We will now cumpute the indicators for the data set using the <strong>all</strong> function. Using the keyword <em>show_all = <strong>False</strong></em> yields all the indicators that are not returning <strong>None</strong>. If the user gives the keyword <em>warnings</em> = <strong>True</strong>, and there is at least one function that returns <strong>None</strong>, then the user will be notified of which functions that returned <strong>None</strong>, as seen below.</p>
+<p>We will now compute the indicators for the data set using the <strong>all</strong> function. Using the keyword <em>show_all = <strong>False</strong></em> yields all the indicators that are not returning <strong>None</strong>. If the user gives the keyword <em>warnings</em> = <strong>True</strong>, and there is at least one function that returns <strong>None</strong>, then the user will be notified of which functions that returned <strong>None</strong>, as seen below.</p>
 
 </div>
 </div>
@@ -12218,456 +12218,7 @@ churn_rate
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We will now look at a data set holding information on stop locations, that is the location when people are not moving around and for how long they have been in that position.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="o">+</span><span class="s2">&quot;stop_location.csv&quot;</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data2</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt output_prompt">Out[11]:</div>
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>duration</th>
-      <th>datetime</th>
-      <th>position</th>
-      <th>event</th>
-      <th>interaction</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>10800</td>
-      <td>2014-01-06 08:45:00</td>
-      <td>0_13</td>
-      <td>campus</td>
-      <td>stop</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>900</td>
-      <td>2014-01-06 12:15:00</td>
-      <td>0_11</td>
-      <td>home</td>
-      <td>stop</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>3600</td>
-      <td>2014-01-06 12:45:00</td>
-      <td>0_13</td>
-      <td>campus</td>
-      <td>stop</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>4500</td>
-      <td>2014-01-06 14:00:00</td>
-      <td>0_377</td>
-      <td>campus</td>
-      <td>stop</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>3600</td>
-      <td>2014-01-06 15:45:00</td>
-      <td>0_13</td>
-      <td>campus</td>
-      <td>stop</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>900</td>
-      <td>2014-01-06 17:00:00</td>
-      <td>0_11</td>
-      <td>home</td>
-      <td>stop</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>51300</td>
-      <td>2014-01-06 18:00:00</td>
-      <td>0_11</td>
-      <td>home</td>
-      <td>stop</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>10800</td>
-      <td>2014-01-07 08:45:00</td>
-      <td>0_13</td>
-      <td>campus</td>
-      <td>stop</td>
-    </tr>
-    <tr>
-      <th>8</th>
-      <td>13500</td>
-      <td>2014-01-07 13:00:00</td>
-      <td>0_13</td>
-      <td>campus</td>
-      <td>stop</td>
-    </tr>
-    <tr>
-      <th>9</th>
-      <td>56700</td>
-      <td>2014-01-07 17:00:00</td>
-      <td>0_11</td>
-      <td>home</td>
-      <td>stop</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">set</span><span class="p">(</span><span class="n">data2</span><span class="p">[</span><span class="s1">&#39;event&#39;</span><span class="p">])</span> <span class="c1">#The different events, &quot;other&quot; is also present.</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt output_prompt">Out[12]:</div>
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>{&#39;campus&#39;, &#39;home&#39;, &#39;other&#39;}</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">U_stop</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;stop_location&quot;</span><span class="p">,</span><span class="n">path</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre><span class="ansi-green-fg">[x]</span> 516 records from 2014-01-06 08:45:00 to 2014-06-20 20:30:00
-<span class="ansi-green-fg">[ ]</span> No contacts for stop
-<span class="ansi-green-fg">[ ]</span> No attribute stored
-<span class="ansi-green-fg">[ ]</span> No antenna stored
-<span class="ansi-green-fg">[ ]</span> No recharges
-<span class="ansi-green-fg">[x]</span> Has home
-<span class="ansi-green-fg">[ ]</span> No texts
-<span class="ansi-green-fg">[ ]</span> No calls
-<span class="ansi-green-fg">[ ]</span> No network
-<span class="ansi-green-fg">[x]</span> Has stop
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>The import did not give any warnings, since the <em>position</em> attribute determines position of the antenna used. The attribute here means something else, namely the position of the test subject and is therefore not the same as the what the original <em>bandicoot</em> means. The description of the user does however say that there are no antennas stored, which is correct.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[21]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">U_stop</span><span class="o">.</span><span class="n">home</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt output_prompt">Out[21]:</div>
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>Position()</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><em>bandicoot</em> still computes the home given the positions, but since the records do not store a specific location for the <em>position</em> attribute, the home is an empty <strong>Position</strong> class.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">bc</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">U_stop</span><span class="p">,</span><span class="n">show_all</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt output_prompt">Out[14]:</div>
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>{
-    &#34;name&#34;: &#34;stop_location&#34;,
-    &#34;reporting&#34;: {
-        &#34;antennas_path&#34;: None,
-        &#34;attributes_path&#34;: None,
-        &#34;recharges_path&#34;: None,
-        &#34;version&#34;: &#34;0.5.3&#34;,
-        &#34;code_signature&#34;: &#34;900718f0bed6a9c5dac2806eab9cccfc91d3cec9&#34;,
-        &#34;groupby&#34;: &#34;week&#34;,
-        &#34;split_week&#34;: false,
-        &#34;split_day&#34;: false,
-        &#34;start_time&#34;: &#34;2014-01-06 08:45:00&#34;,
-        &#34;end_time&#34;: &#34;2014-06-20 20:30:00&#34;,
-        &#34;night_start&#34;: &#34;19:00:00&#34;,
-        &#34;night_end&#34;: &#34;07:00:00&#34;,
-        &#34;weekend&#34;: [
-            6,
-            7
-        ],
-        &#34;number_of_records&#34;: 516,
-        &#34;number_of_antennas&#34;: 0,
-        &#34;number_of_recharges&#34;: 0,
-        &#34;bins&#34;: 24,
-        &#34;bins_with_data&#34;: 21,
-        &#34;bins_without_data&#34;: 3,
-        &#34;has_call&#34;: false,
-        &#34;has_text&#34;: false,
-        &#34;has_home&#34;: true,
-        &#34;has_recharges&#34;: false,
-        &#34;has_attributes&#34;: false,
-        &#34;has_network&#34;: false,
-        &#34;percent_records_missing_location&#34;: 0.0,
-        &#34;antennas_missing_locations&#34;: 0,
-        &#34;percent_outofnetwork_calls&#34;: 0,
-        &#34;percent_outofnetwork_texts&#34;: 0,
-        &#34;percent_outofnetwork_contacts&#34;: 0,
-        &#34;percent_outofnetwork_durations&#34;: 0,
-        &#34;ignored_records&#34;: {
-            &#34;position&#34;: 0,
-            &#34;event&#34;: 0,
-            &#34;interaction&#34;: 0,
-            &#34;all&#34;: 0,
-            &#34;direction&#34;: 0,
-            &#34;duration&#34;: 0,
-            &#34;datetime&#34;: 0
-        }
-    },
-    &#34;active_days&#34;: {
-        &#34;allweek&#34;: {
-            &#34;allday&#34;: {
-                &#34;stop&#34;: {
-                    &#34;mean&#34;: 5.9523809523809526,
-                    &#34;std&#34;: 1.430157849302972
-                }
-            }
-        }
-    },
-    &#34;duration&#34;: {
-        &#34;allweek&#34;: {
-            &#34;allday&#34;: {
-                &#34;stop&#34;: {
-                    &#34;mean&#34;: {
-                        &#34;mean&#34;: 20758.496657056472,
-                        &#34;std&#34;: 5971.492813033838
-                    },
-                    &#34;std&#34;: {
-                        &#34;mean&#34;: 28731.145582308556,
-                        &#34;std&#34;: 9600.436960751154
-                    }
-                }
-            }
-        }
-    },
-    &#34;percent_nocturnal&#34;: {
-        &#34;allweek&#34;: {
-            &#34;allday&#34;: {
-                &#34;stop&#34;: {
-                    &#34;mean&#34;: 0.21049730834628264,
-                    &#34;std&#34;: 0.1673200616846194
-                }
-            }
-        }
-    },
-    &#34;interevent_time&#34;: {
-        &#34;allweek&#34;: {
-            &#34;allday&#34;: {
-                &#34;stop&#34;: {
-                    &#34;mean&#34;: {
-                        &#34;mean&#34;: 20118.299570578936,
-                        &#34;std&#34;: 4820.410796111003
-                    },
-                    &#34;std&#34;: {
-                        &#34;mean&#34;: 24163.757099500934,
-                        &#34;std&#34;: 6284.720278984438
-                    }
-                }
-            }
-        }
-    },
-    &#34;number_of_interactions&#34;: {
-        &#34;allweek&#34;: {
-            &#34;allday&#34;: {
-                &#34;stop&#34;: {
-                    &#34;mean&#34;: 24.571428571428573,
-                    &#34;std&#34;: 7.662968643768168
-                }
-            }
-        }
-    },
-    &#34;number_of_antennas&#34;: {
-        &#34;allweek&#34;: {
-            &#34;allday&#34;: {
-                &#34;mean&#34;: 1.0,
-                &#34;std&#34;: 0.0
-            }
-        }
-    },
-    &#34;percent_at_home&#34;: {
-        &#34;allweek&#34;: {
-            &#34;allday&#34;: {
-                &#34;mean&#34;: 1.0,
-                &#34;std&#34;: 0.0
-            }
-        }
-    },
-    &#34;frequent_antennas&#34;: {
-        &#34;allweek&#34;: {
-            &#34;allday&#34;: {
-                &#34;mean&#34;: 1.0,
-                &#34;std&#34;: 0.0
-            }
-        }
-    },
-    &#34;none_functions&#34;: [
-        &#34;number_of_contacts&#34;,
-        &#34;percent_initiated_conversations&#34;,
-        &#34;percent_initiated_interactions&#34;,
-        &#34;response_delay_text&#34;,
-        &#34;response_rate_text&#34;,
-        &#34;entropy_of_contacts&#34;,
-        &#34;balance_of_contacts&#34;,
-        &#34;interactions_per_contact&#34;,
-        &#34;percent_pareto_interactions&#34;,
-        &#34;percent_pareto_durations&#34;,
-        &#34;number_of_interaction_in&#34;,
-        &#34;number_of_interaction_out&#34;,
-        &#34;entropy_of_antennas&#34;,
-        &#34;radius_of_gyration&#34;,
-        &#34;churn_rate&#34;
-    ]
-}</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>It can be seen that the spatial indicators, such as <strong>churn_rate</strong> returns <strong>None</strong>, which is due to the difference in the meaning of the <em>position</em> attribute.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Finally, we can take a look at a data set for proximity events, that is a meeting is recorded when test subjects are near each other, recorded via Bluetooth.</p>
+<p>We can now take a look at a data set for proximity events, that is a meeting is recorded when test subjects are near each other, recorded via Bluetooth.</p>
 
 </div>
 </div>
@@ -12677,7 +12228,7 @@ churn_rate
 <div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data3</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="o">+</span><span class="s2">&quot;proximity_original.csv&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="o">+</span><span class="s2">&quot;proximity_original.csv&quot;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -12690,7 +12241,7 @@ churn_rate
 <div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data3</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data2</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
 </pre></div>
 
 </div>
@@ -13047,6 +12598,746 @@ churn_rate
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Finally, it will be shown that the toolbox still works for CDR data. This data set has been extracted via the <em>bandicoot</em> App provided in <em>Google Play Store</em>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[24]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">path2</span> <span class="o">=</span> <span class="s1">&#39;../&#39;</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[25]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data3</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path2</span><span class="o">+</span><span class="s2">&quot;metadata.csv&quot;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[27]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data3</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[27]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>interaction</th>
+      <th>direction</th>
+      <th>correspondent_id</th>
+      <th>datetime</th>
+      <th>call_duration</th>
+      <th>antenna_id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>call</td>
+      <td>out</td>
+      <td>1ca3e79268249930e7b5b20f70531e22233d2c33</td>
+      <td>2016-05-13 19:03:38</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>text</td>
+      <td>in</td>
+      <td>b22f56514f8ef784f4e9f6aebd7b98f96942d400</td>
+      <td>2016-05-13 21:06:17</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>text</td>
+      <td>in</td>
+      <td>b22f56514f8ef784f4e9f6aebd7b98f96942d400</td>
+      <td>2016-05-13 21:17:53</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>text</td>
+      <td>in</td>
+      <td>b22f56514f8ef784f4e9f6aebd7b98f96942d400</td>
+      <td>2016-05-13 21:21:23</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>text</td>
+      <td>in</td>
+      <td>562869765f146fff44b0303842323a49b5b95cff</td>
+      <td>2016-05-13 22:02:47</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>text</td>
+      <td>in</td>
+      <td>13d37a5097bb63214a6e3da479ee7ca8ce04caff</td>
+      <td>2016-05-13 22:34:48</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>text</td>
+      <td>out</td>
+      <td>13d37a5097bb63214a6e3da479ee7ca8ce04caff</td>
+      <td>2016-05-13 23:36:49</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>call</td>
+      <td>in</td>
+      <td>1ca3e79268249930e7b5b20f70531e22233d2c33</td>
+      <td>2016-05-14 15:48:34</td>
+      <td>199.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>text</td>
+      <td>in</td>
+      <td>aab513e40e81aee7ef073cf092834e1f49f87c07</td>
+      <td>2016-05-16 09:37:21</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>text</td>
+      <td>out</td>
+      <td>13d37a5097bb63214a6e3da479ee7ca8ce04caff</td>
+      <td>2016-05-16 13:17:12</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[28]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">U</span> <span class="o">=</span> <span class="n">bc</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;metadata&quot;</span><span class="p">,</span><span class="n">path2</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>WARNING:root:100.00% of the records are missing a location.
+         No antennas file was given and records are using antennas for position.
+<span class="ansi-yellow-fg">Warning: 100.00% of the records are missing a location.
+         No antennas file was given and records are using antennas for position.
+</span>WARNING:root:2 record(s) are duplicated.
+</pre>
+</div>
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre><span class="ansi-green-fg">[x]</span> 1541 records from 2016-05-13 19:03:38 to 2016-09-28 18:35:25
+<span class="ansi-green-fg">[x]</span> 88 unique contacts
+<span class="ansi-green-fg">[x]</span> 49 contacts call
+<span class="ansi-green-fg">[x]</span> 50 contacts text
+<span class="ansi-green-fg">[ ]</span> No attribute stored
+<span class="ansi-green-fg">[ ]</span> No antenna stored
+<span class="ansi-green-fg">[ ]</span> No recharges
+<span class="ansi-green-fg">[ ]</span> No home
+<span class="ansi-green-fg">[x]</span> Has texts
+<span class="ansi-green-fg">[x]</span> Has calls
+<span class="ansi-green-fg">[ ]</span> No network
+</pre>
+</div>
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stderr output_text">
+<pre><span class="ansi-yellow-fg">Warning: 2 record(s) are duplicated.
+</span></pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can now group the data in a different way. We will look at the data grouped separately, that is <em>call</em> and <em>text</em> separately, and also group the <em>call</em> and <em>text</em> together. This type of grouping can be done for any dataset, yielding many different and interesting indicators.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[30]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">bc</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">U</span><span class="p">,</span><span class="n">show_all</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">interaction</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;call&quot;</span><span class="p">,</span><span class="s2">&quot;text&quot;</span><span class="p">,[</span><span class="s2">&quot;call&quot;</span><span class="p">,</span><span class="s2">&quot;text&quot;</span><span class="p">]])</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[30]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{
+    &#34;name&#34;: &#34;metadata&#34;,
+    &#34;reporting&#34;: {
+        &#34;antennas_path&#34;: None,
+        &#34;attributes_path&#34;: None,
+        &#34;recharges_path&#34;: None,
+        &#34;version&#34;: &#34;0.5.3&#34;,
+        &#34;code_signature&#34;: &#34;900718f0bed6a9c5dac2806eab9cccfc91d3cec9&#34;,
+        &#34;groupby&#34;: &#34;week&#34;,
+        &#34;split_week&#34;: false,
+        &#34;split_day&#34;: false,
+        &#34;start_time&#34;: &#34;2016-05-13 19:03:38&#34;,
+        &#34;end_time&#34;: &#34;2016-09-28 18:35:25&#34;,
+        &#34;night_start&#34;: &#34;19:00:00&#34;,
+        &#34;night_end&#34;: &#34;07:00:00&#34;,
+        &#34;weekend&#34;: [
+            6,
+            7
+        ],
+        &#34;number_of_records&#34;: 1541,
+        &#34;number_of_antennas&#34;: 0,
+        &#34;number_of_recharges&#34;: 0,
+        &#34;bins&#34;: 21,
+        &#34;bins_with_data&#34;: 21,
+        &#34;bins_without_data&#34;: 0,
+        &#34;has_call&#34;: true,
+        &#34;has_text&#34;: true,
+        &#34;has_home&#34;: false,
+        &#34;has_recharges&#34;: false,
+        &#34;has_attributes&#34;: false,
+        &#34;has_network&#34;: false,
+        &#34;percent_records_missing_location&#34;: 1.0,
+        &#34;antennas_missing_locations&#34;: 0,
+        &#34;percent_outofnetwork_calls&#34;: 0,
+        &#34;percent_outofnetwork_texts&#34;: 0,
+        &#34;percent_outofnetwork_contacts&#34;: 0,
+        &#34;percent_outofnetwork_durations&#34;: 0,
+        &#34;ignored_records&#34;: {
+            &#34;position&#34;: 0,
+            &#34;all&#34;: 0,
+            &#34;direction&#34;: 0,
+            &#34;correspondent_id&#34;: 0,
+            &#34;interaction&#34;: 0,
+            &#34;antenna_id&#34;: 0,
+            &#34;duration&#34;: 0,
+            &#34;datetime&#34;: 0
+        }
+    },
+    &#34;active_days&#34;: {
+        &#34;allweek&#34;: {
+            &#34;allday&#34;: {
+                &#34;call&#34;: {
+                    &#34;mean&#34;: 5.428571428571429,
+                    &#34;std&#34;: 1.3652639225553762
+                },
+                &#34;text&#34;: {
+                    &#34;mean&#34;: 5.857142857142857,
+                    &#34;std&#34;: 1.5208304212067918
+                },
+                &#34;callandtext&#34;: {
+                    &#34;mean&#34;: 6.380952380952381,
+                    &#34;std&#34;: 1.32651316925563
+                }
+            }
+        }
+    },
+    &#34;number_of_contacts&#34;: {
+        &#34;allweek&#34;: {
+            &#34;allday&#34;: {
+                &#34;call&#34;: {
+                    &#34;mean&#34;: 7.380952380952381,
+                    &#34;std&#34;: 3.169440246151188
+                },
+                &#34;text&#34;: {
+                    &#34;mean&#34;: 9.904761904761905,
+                    &#34;std&#34;: 3.57111109700051
+                },
+                &#34;callandtext&#34;: {
+                    &#34;mean&#34;: 14.380952380952381,
+                    &#34;std&#34;: 4.61339860753633
+                }
+            }
+        }
+    },
+    &#34;duration&#34;: {
+        &#34;allweek&#34;: {
+            &#34;allday&#34;: {
+                &#34;call&#34;: {
+                    &#34;mean&#34;: {
+                        &#34;mean&#34;: 77.9903615828616,
+                        &#34;std&#34;: 34.780686278490236
+                    },
+                    &#34;std&#34;: {
+                        &#34;mean&#34;: 69.54787333586637,
+                        &#34;std&#34;: 30.240834209681015
+                    }
+                },
+                &#34;text&#34;: {
+                    &#34;mean&#34;: {
+                        &#34;mean&#34;: None,
+                        &#34;std&#34;: None
+                    },
+                    &#34;std&#34;: {
+                        &#34;mean&#34;: None,
+                        &#34;std&#34;: None
+                    }
+                },
+                &#34;callandtext&#34;: {
+                    &#34;mean&#34;: {
+                        &#34;mean&#34;: 77.9903615828616,
+                        &#34;std&#34;: 34.780686278490236
+                    },
+                    &#34;std&#34;: {
+                        &#34;mean&#34;: 69.54787333586637,
+                        &#34;std&#34;: 30.240834209681015
+                    }
+                }
+            }
+        }
+    },
+    &#34;percent_nocturnal&#34;: {
+        &#34;allweek&#34;: {
+            &#34;allday&#34;: {
+                &#34;call&#34;: {
+                    &#34;mean&#34;: 0.16253114229374674,
+                    &#34;std&#34;: 0.16227761924157175
+                },
+                &#34;text&#34;: {
+                    &#34;mean&#34;: 0.3751208670651482,
+                    &#34;std&#34;: 0.21122962711789556
+                },
+                &#34;callandtext&#34;: {
+                    &#34;mean&#34;: 0.32776544579766864,
+                    &#34;std&#34;: 0.17911754998674098
+                }
+            }
+        }
+    },
+    &#34;percent_initiated_conversations&#34;: {
+        &#34;allweek&#34;: {
+            &#34;allday&#34;: {
+                &#34;call&#34;: {
+                    &#34;mean&#34;: 0.0,
+                    &#34;std&#34;: 0.0
+                },
+                &#34;text&#34;: {
+                    &#34;mean&#34;: 0.425321710044081,
+                    &#34;std&#34;: 0.10141579329959363
+                },
+                &#34;callandtext&#34;: {
+                    &#34;mean&#34;: 0.4282067888067688,
+                    &#34;std&#34;: 0.10365188343423812
+                }
+            }
+        }
+    },
+    &#34;percent_initiated_interactions&#34;: {
+        &#34;allweek&#34;: {
+            &#34;allday&#34;: {
+                &#34;call&#34;: {
+                    &#34;mean&#34;: 0.481364275453553,
+                    &#34;std&#34;: 0.1832121929950095
+                },
+                &#34;text&#34;: {
+                    &#34;mean&#34;: 0.45839353379228626,
+                    &#34;std&#34;: 0.07529970828460919
+                },
+                &#34;callandtext&#34;: {
+                    &#34;mean&#34;: 0.46229202036110034,
+                    &#34;std&#34;: 0.0759008114135604
+                }
+            }
+        }
+    },
+    &#34;response_delay_text&#34;: {
+        &#34;allweek&#34;: {
+            &#34;allday&#34;: {
+                &#34;call&#34;: {
+                    &#34;mean&#34;: {
+                        &#34;mean&#34;: None,
+                        &#34;std&#34;: None
+                    },
+                    &#34;std&#34;: {
+                        &#34;mean&#34;: None,
+                        &#34;std&#34;: None
+                    }
+                },
+                &#34;text&#34;: {
+                    &#34;mean&#34;: {
+                        &#34;mean&#34;: 474.1348872066148,
+                        &#34;std&#34;: 217.3510563565674
+                    },
+                    &#34;std&#34;: {
+                        &#34;mean&#34;: 652.4912430446403,
+                        &#34;std&#34;: 272.3378615224165
+                    }
+                },
+                &#34;callandtext&#34;: {
+                    &#34;mean&#34;: {
+                        &#34;mean&#34;: 467.00246962419726,
+                        &#34;std&#34;: 227.65122198530315
+                    },
+                    &#34;std&#34;: {
+                        &#34;mean&#34;: 631.6882967850754,
+                        &#34;std&#34;: 296.13913750132696
+                    }
+                }
+            }
+        }
+    },
+    &#34;response_rate_text&#34;: {
+        &#34;allweek&#34;: {
+            &#34;allday&#34;: {
+                &#34;call&#34;: {
+                    &#34;mean&#34;: None,
+                    &#34;std&#34;: None
+                },
+                &#34;text&#34;: {
+                    &#34;mean&#34;: 0.30171934004861917,
+                    &#34;std&#34;: 0.15620899760771112
+                },
+                &#34;callandtext&#34;: {
+                    &#34;mean&#34;: 0.30171934004861917,
+                    &#34;std&#34;: 0.15620899760771112
+                }
+            }
+        }
+    },
+    &#34;entropy_of_contacts&#34;: {
+        &#34;allweek&#34;: {
+            &#34;allday&#34;: {
+                &#34;call&#34;: {
+                    &#34;mean&#34;: 1.647054481535061,
+                    &#34;std&#34;: 0.5838641496261422
+                },
+                &#34;text&#34;: {
+                    &#34;mean&#34;: 1.7063719301105151,
+                    &#34;std&#34;: 0.40135487899527533
+                },
+                &#34;callandtext&#34;: {
+                    &#34;mean&#34;: 2.010157484653839,
+                    &#34;std&#34;: 0.37429964422404854
+                }
+            }
+        }
+    },
+    &#34;balance_of_contacts&#34;: {
+        &#34;allweek&#34;: {
+            &#34;allday&#34;: {
+                &#34;call&#34;: {
+                    &#34;mean&#34;: {
+                        &#34;mean&#34;: 0.0888911367821485,
+                        &#34;std&#34;: 0.10328055829431501
+                    },
+                    &#34;std&#34;: {
+                        &#34;mean&#34;: 0.05902708555265434,
+                        &#34;std&#34;: 0.03991047746822355
+                    }
+                },
+                &#34;text&#34;: {
+                    &#34;mean&#34;: {
+                        &#34;mean&#34;: 0.05316908384712266,
+                        &#34;std&#34;: 0.024438770366315293
+                    },
+                    &#34;std&#34;: {
+                        &#34;mean&#34;: 0.07124378421887713,
+                        &#34;std&#34;: 0.022984158275078843
+                    }
+                },
+                &#34;callandtext&#34;: {
+                    &#34;mean&#34;: {
+                        &#34;mean&#34;: 0.03572734436483614,
+                        &#34;std&#34;: 0.01246758043818512
+                    },
+                    &#34;std&#34;: {
+                        &#34;mean&#34;: 0.054635975612160076,
+                        &#34;std&#34;: 0.015309094338676986
+                    }
+                }
+            }
+        }
+    },
+    &#34;interactions_per_contact&#34;: {
+        &#34;allweek&#34;: {
+            &#34;allday&#34;: {
+                &#34;call&#34;: {
+                    &#34;mean&#34;: {
+                        &#34;mean&#34;: 2.2136191850477562,
+                        &#34;std&#34;: 0.7643746533995858
+                    },
+                    &#34;std&#34;: {
+                        &#34;mean&#34;: 1.5767931631558592,
+                        &#34;std&#34;: 1.2277023859653053
+                    }
+                },
+                &#34;text&#34;: {
+                    &#34;mean&#34;: {
+                        &#34;mean&#34;: 5.757601459387173,
+                        &#34;std&#34;: 1.8523874352682312
+                    },
+                    &#34;std&#34;: {
+                        &#34;mean&#34;: 6.786246957462101,
+                        &#34;std&#34;: 3.8746678478493677
+                    }
+                },
+                &#34;callandtext&#34;: {
+                    &#34;mean&#34;: {
+                        &#34;mean&#34;: 5.069779038266434,
+                        &#34;std&#34;: 1.5308733914546122
+                    },
+                    &#34;std&#34;: {
+                        &#34;mean&#34;: 6.733737332854262,
+                        &#34;std&#34;: 3.3226687742593417
+                    }
+                }
+            }
+        }
+    },
+    &#34;interevent_time&#34;: {
+        &#34;allweek&#34;: {
+            &#34;allday&#34;: {
+                &#34;call&#34;: {
+                    &#34;mean&#34;: {
+                        &#34;mean&#34;: 37792.92943234367,
+                        &#34;std&#34;: 18906.05640420461
+                    },
+                    &#34;std&#34;: {
+                        &#34;mean&#34;: 39370.690935675535,
+                        &#34;std&#34;: 16015.052229904284
+                    }
+                },
+                &#34;text&#34;: {
+                    &#34;mean&#34;: {
+                        &#34;mean&#34;: 9540.774388325444,
+                        &#34;std&#34;: 5482.766431827406
+                    },
+                    &#34;std&#34;: {
+                        &#34;mean&#34;: 21585.986263684852,
+                        &#34;std&#34;: 9558.724766872087
+                    }
+                },
+                &#34;callandtext&#34;: {
+                    &#34;mean&#34;: {
+                        &#34;mean&#34;: 7974.015344105529,
+                        &#34;std&#34;: 3605.8999596073472
+                    },
+                    &#34;std&#34;: {
+                        &#34;mean&#34;: 17764.32704676006,
+                        &#34;std&#34;: 5355.4269700925815
+                    }
+                }
+            }
+        }
+    },
+    &#34;percent_pareto_interactions&#34;: {
+        &#34;allweek&#34;: {
+            &#34;allday&#34;: {
+                &#34;call&#34;: {
+                    &#34;mean&#34;: 0.36236005389311476,
+                    &#34;std&#34;: 0.16242260702929603
+                },
+                &#34;text&#34;: {
+                    &#34;mean&#34;: 0.10221040455847577,
+                    &#34;std&#34;: 0.06818605667106467
+                },
+                &#34;callandtext&#34;: {
+                    &#34;mean&#34;: 0.10286564601766933,
+                    &#34;std&#34;: 0.07212061530088389
+                }
+            }
+        }
+    },
+    &#34;percent_pareto_durations&#34;: {
+        &#34;allweek&#34;: {
+            &#34;allday&#34;: {
+                &#34;call&#34;: {
+                    &#34;mean&#34;: 0.35012293262293265,
+                    &#34;std&#34;: 0.19467331509625
+                },
+                &#34;text&#34;: {
+                    &#34;mean&#34;: None,
+                    &#34;std&#34;: None
+                },
+                &#34;callandtext&#34;: {
+                    &#34;mean&#34;: 0.35012293262293265,
+                    &#34;std&#34;: 0.19467331509625
+                }
+            }
+        }
+    },
+    &#34;number_of_interactions&#34;: {
+        &#34;allweek&#34;: {
+            &#34;allday&#34;: {
+                &#34;call&#34;: {
+                    &#34;mean&#34;: 16.285714285714285,
+                    &#34;std&#34;: 8.547585886658053
+                },
+                &#34;text&#34;: {
+                    &#34;mean&#34;: 57.095238095238095,
+                    &#34;std&#34;: 24.189538789486512
+                },
+                &#34;callandtext&#34;: {
+                    &#34;mean&#34;: 73.38095238095238,
+                    &#34;std&#34;: 27.668920488478268
+                }
+            }
+        }
+    },
+    &#34;number_of_interaction_in&#34;: {
+        &#34;allweek&#34;: {
+            &#34;allday&#34;: {
+                &#34;call&#34;: {
+                    &#34;mean&#34;: 8.238095238095237,
+                    &#34;std&#34;: 4.689448763470544
+                },
+                &#34;text&#34;: {
+                    &#34;mean&#34;: 29.904761904761905,
+                    &#34;std&#34;: 12.235408265337988
+                },
+                &#34;callandtext&#34;: {
+                    &#34;mean&#34;: 38.142857142857146,
+                    &#34;std&#34;: 13.67404811446613
+                }
+            }
+        }
+    },
+    &#34;number_of_interaction_out&#34;: {
+        &#34;allweek&#34;: {
+            &#34;allday&#34;: {
+                &#34;call&#34;: {
+                    &#34;mean&#34;: 8.047619047619047,
+                    &#34;std&#34;: 4.725575706687725
+                },
+                &#34;text&#34;: {
+                    &#34;mean&#34;: 27.19047619047619,
+                    &#34;std&#34;: 12.19140621452375
+                },
+                &#34;callandtext&#34;: {
+                    &#34;mean&#34;: 35.23809523809524,
+                    &#34;std&#34;: 14.631683696706048
+                }
+            }
+        }
+    },
+    &#34;number_of_antennas&#34;: {
+        &#34;allweek&#34;: {
+            &#34;allday&#34;: {
+                &#34;mean&#34;: 1.0,
+                &#34;std&#34;: 0.0
+            }
+        }
+    },
+    &#34;frequent_antennas&#34;: {
+        &#34;allweek&#34;: {
+            &#34;allday&#34;: {
+                &#34;mean&#34;: 1.0,
+                &#34;std&#34;: 0.0
+            }
+        }
+    },
+    &#34;none_functions&#34;: [
+        &#34;entropy_of_antennas&#34;,
+        &#34;percent_at_home&#34;,
+        &#34;radius_of_gyration&#34;,
+        &#34;churn_rate&#34;
+    ]
+}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>It can be seen that the functions that only returned <strong>None</strong> are spatial functions, which makes sense since we provided CDR data but not data about the antennas.</p>
+
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
